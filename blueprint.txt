@@ -1,0 +1,180 @@
+BLUEPRINT TÉCNICO EXECUTIVO — NEXUSPRICE
+VERSÃO: 1.0 (EXECUÇÃO V0)
+STATUS: BLOQUEADO POR ÂNCORA DE INTENÇÃO
+AUTORIDADE: MESTRE JAIME
+VALIDAÇÃO: ARGOS v3.3
+ORQUESTRAÇÃO TÉCNICA: ORION 3.0
+INFRAESTRUTURA: GOOGLE ANTIGRAVITY
+ALINHAMENTO: PNA 3.0 • MMI 1.0
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. DEFINIÇÃO DO PRODUTO (SEM DESVIO)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NEXUSPRICE é um SISTEMA DE BUSCA DE MENOR PREÇO TOTAL.
+
+Função única:
+→ Encontrar, no momento da busca, a MELHOR OFERTA FINAL
+→ Menor preço total possível
+→ Considerando apenas:
+   • preço
+   • frete
+   • prazo
+   • reputação básica
+
+Qualquer funcionalidade fora disso é PROIBIDA.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. MODELO MENTAL DO USUÁRIO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Usuário já decidiu o produto
+• Usuário NÃO quer ajuda para escolher
+• Usuário NÃO quer análise
+• Usuário NÃO quer opinião
+• Usuário quer PREÇO
+
+Entrada padrão:
+“Qual o melhor preço de [PRODUTO]?”
+
+O sistema RESPONDE.
+Nunca conduz.
+Nunca questiona.
+Nunca educa.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. PAPEL EXATO DA IA (SUBORDINADO)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+A IA NÃO decide o produto.
+A IA NÃO amplia escopo.
+A IA NÃO cria contexto.
+
+A IA:
+• valida dados coletados
+• resolve conflitos simples (ex: preço vs frete)
+• escolhe a MELHOR OFERTA FINAL
+• gera justificativa fixa e curta (máx. 3 frases)
+
+A IA NÃO:
+• analisa cenários
+• compara alternativas
+• sugere espera
+• recomenda outro produto
+• cria textos longos
+• assume protagonismo
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. ARQUITETURA TÉCNICA (V0)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CAMADA 1 — INTERFACE
+• Página simples ou chat
+• Campo único de entrada
+• Zero fricção
+• Zero personalização
+
+CAMADA 2 — COLETA
+• Execução 100% on-demand
+• APIs oficiais quando existirem
+• Busca pública
+• Headless pontual SOMENTE se necessário
+• Nenhuma rotina contínua
+• Nenhum crawler persistente
+
+CAMADA 3 — NORMALIZAÇÃO
+• Converter preços para formato único
+• Somar preço + frete
+• Padronizar prazo
+• Classificar reputação (Alta / Média / Baixa)
+
+CAMADA 4 — DECISÃO FINAL (LÓGICA SIMPLES)
+• Ordenar por MENOR PREÇO TOTAL
+• Aplicar desempate simples:
+   1. menor preço total
+   2. melhor reputação
+   3. menor prazo
+
+CAMADA 5 — IA (VALIDAÇÃO)
+• Confere consistência
+• Resolve empates simples
+• Gera justificativa padrão
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. OUTPUT PADRÃO (IMUTÁVEL)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+A resposta AO USUÁRIO DEVE CONTER EXATAMENTE:
+
+• Loja
+• Preço do produto
+• Frete (valor ou grátis)
+• Prazo de entrega
+• Reputação (Alta / Média / Baixa)
+• Justificativa curta e fixa:
+
+“Esta é a melhor oferta considerando preço total, frete e reputação no momento.”
+
+Sem variação criativa.
+Sem texto adicional.
+Sem emojis.
+Sem sugestões.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. DADOS E CUSTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Nenhum banco complexo
+• Nenhum histórico obrigatório
+• Nenhuma persistência além da sessão
+• Infra 100% variável
+• Custo inicial: R$ 0,00
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. ANTI-ESCOPO (BLOQUEIO ABSOLUTO)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+É EXPRESSAMENTE PROIBIDO IMPLEMENTAR:
+
+• comparação de cenários
+• produtos alternativos
+• recomendações inteligentes
+• alertas
+• gráficos
+• dashboards
+• análises subjetivas
+• textos longos
+• educação de consumo
+• protagonismo da IA
+
+Se não ajuda a achar o MELHOR PREÇO AGORA → NÃO EXISTE.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. EVOLUÇÃO AUTORIZADA (CONTEXTO, NÃO EXECUÇÃO)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+V0 (AGORA):
+• Melhor preço no momento
+
+V1 (FUTURO):
+• Favoritos
+• Histórico simples
+
+V2 (FUTURO):
+• Alertas de preço
+
+V3 (FUTURO):
+• Jurídico
+• Escala SaaS
+
+ORION ESTÁ AUTORIZADO A CONSTRUIR APENAS V0.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. GOVERNANÇA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• ORION executa fielmente este blueprint
+• Nenhuma reinterpretação é permitida
+• Qualquer dúvida estratégica retorna ao Mestre Jaime
+• ARGOS decide GO / NO-GO
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STATUS FINAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLUEPRINT REFEITO, LIMPO E ALINHADO À ÂNCORA ORIGINAL.
+PRONTO PARA VALIDAÇÃO ARGOS.
+PRONTO PARA INÍCIO DA EXECUÇÃO V0.
+
+ORION 3.0 — CÉREBRO UNIVERSAL INTEGRADO
+SUBMISSO AO MESTRE JAIME • VALIDADO POR ARGOS

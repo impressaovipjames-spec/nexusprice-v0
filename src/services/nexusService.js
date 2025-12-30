@@ -4,6 +4,8 @@
 const MOCK_DB = [
     {
         terms: ['iphone', '15', '128'],
+        productName: 'iPhone 15 Apple (128 GB)',
+        image: 'https://m.media-amazon.com/images/I/71d7rjTSKdL._AC_SL1500_.jpg',
         offers: [
             {
                 loja: 'Amazon',
@@ -26,9 +28,18 @@ const MOCK_DB = [
             {
                 loja: 'Fast Shop',
                 produto: 'Apple iPhone 15 (128 GB) - Preto',
-                preco_base: 4899.00,
-                custo_frete: 0,
+                preco_base: 4799.00,
+                custo_frete: 99.00,
                 prazo_dias: 1,
+                reputacao: 'Alta',
+                link: '#'
+            },
+            {
+                loja: 'Mercado Livre',
+                produto: 'Apple iPhone 15 (128 GB) - Preto',
+                preco_base: 5100.00,
+                custo_frete: 0,
+                prazo_dias: 2,
                 reputacao: 'Alta',
                 link: '#'
             }
@@ -36,6 +47,8 @@ const MOCK_DB = [
     },
     {
         terms: ['samsung', 's23', 'ultra'],
+        productName: 'Samsung Galaxy S23 Ultra',
+        image: 'https://m.media-amazon.com/images/I/71OndSclunL._AC_SL1500_.jpg',
         offers: [
             {
                 loja: 'Magalu',
@@ -45,11 +58,22 @@ const MOCK_DB = [
                 prazo_dias: 1,
                 reputacao: 'Alta',
                 link: '#'
+            },
+            {
+                loja: 'Samsung Official',
+                produto: 'Samsung Galaxy S23 Ultra 5G 512GB',
+                preco_base: 6299.00,
+                custo_frete: 0,
+                prazo_dias: 3,
+                reputacao: 'Alta',
+                link: '#'
             }
         ]
     },
     {
         terms: ['ps5', 'slim'],
+        productName: 'PlayStation 5 Slim',
+        image: 'https://m.media-amazon.com/images/I/510uTHyDqGL._AC_SL1000_.jpg',
         offers: [
             {
                 loja: 'Kabum',
@@ -57,6 +81,15 @@ const MOCK_DB = [
                 preco_base: 3499.90,
                 custo_frete: 25.00,
                 prazo_dias: 3,
+                reputacao: 'Alta',
+                link: '#'
+            },
+            {
+                loja: 'Amazon',
+                produto: 'Console PlayStation 5 Slim',
+                preco_base: 3790.00,
+                custo_frete: 0,
+                prazo_dias: 2,
                 reputacao: 'Alta',
                 link: '#'
             }
@@ -85,49 +118,49 @@ export async function searchProduct(query) {
         }));
 
         // ORDENAÇÃO DETERMINÍSTICA
-        // 1. Menor preço total
-        // 2. Melhor reputação (Alta > Média > Baixa)
-        // 3. Menor prazo
         const reputacaoScore = { 'Alta': 3, 'Média': 2, 'Baixa': 1 };
 
         const sorted = processedOffers.sort((a, b) => {
-            // Critério 1: Menor preço total
             if (a.preco_total !== b.preco_total) {
                 return a.preco_total - b.preco_total;
             }
-
-            // Critério 2: Melhor reputação
             const repA = reputacaoScore[a.reputacao] || 0;
             const repB = reputacaoScore[b.reputacao] || 0;
             if (repA !== repB) {
-                return repB - repA; // Descendente (maior é melhor)
+                return repB - repA;
             }
-
-            // Critério 3: Menor prazo
             return a.prazo_dias - b.prazo_dias;
         });
 
-        // Retorna o Top 1
         return {
             success: true,
-            data: sorted[0]
+            data: {
+                productName: match.productName,
+                image: match.image,
+                offers: sorted
+            }
         };
     }
 
     // Fallback for demo if no match found
-    // In a real scenario, this would return proper error or perform live search
     if (query.length > 3) {
         return {
             success: true,
             data: {
-                loja: 'Varejo Demo',
-                produto: query, // Echo user query as product name for demo
-                preco_base: 199.90,
-                custo_frete: 15.00,
-                preco_total: 214.90,
-                prazo_dias: 5,
-                reputacao: 'Média',
-                link: '#'
+                productName: query,
+                image: 'https://placehold.co/600x400/111/fff?text=' + encodeURIComponent(query),
+                offers: [
+                    {
+                        loja: 'Varejo Demo',
+                        produto: query,
+                        preco_base: 199.90,
+                        custo_frete: 15.00,
+                        preco_total: 214.90,
+                        prazo_dias: 5,
+                        reputacao: 'Média',
+                        link: '#'
+                    }
+                ]
             }
         }
     }

@@ -46,8 +46,9 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
-  /* Tighter spacing */
+  margin-bottom: 0.25rem;
+  margin-top: -15px;
+  /* Sobe o sino e os traços */
 }
 
 /* LOGO NO FLUXO (GHOST MOVIE REMOVIDO) */
@@ -55,8 +56,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 5px;
-  /* Subiu 5px (especificado em relação ao anterior) */
+  margin-top: -15px;
+  /* Subiu 15px em relação ao anterior (-10px total) */
   z-index: 10;
 }
 
@@ -75,10 +76,12 @@ body {
 
 .headline-box h1 {
   color: #ffffff;
-  font-size: 1.05rem;
+  font-size: 1.25rem;
+  /* Aumentado um pouco */
   font-weight: 500;
   letter-spacing: 0.01em;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  /* Sombra mais forte para aparecer mais */
 }
 
 /* SEARCH BAR - EMPURRADA PELO TEXTO */
@@ -113,8 +116,8 @@ body {
 
 /* MAIN CONTENT OVERLAP - O "CHARME" */
 .main-content-flow {
-  margin-top: -70px;
-  /* SOBREPOSIÇÃO NO VERDE */
+  margin-top: -50px;
+  /* Baixou 20px (era -70px) */
   position: relative;
   z-index: 20;
   padding-bottom: 100px;
@@ -122,19 +125,23 @@ body {
 
 /* HERO CARD - BIG & BEAUTIFUL */
 .hero-card-container {
-  padding: 0 1.25rem;
+  padding: 0;
+  /* Ocupa a largura total do cabeçalho */
   margin-bottom: 1.5rem;
 }
 
 .hero-card-main {
   background: #ffffff;
-  border-radius: 36px;
-  padding: 1.5rem;
+  border-radius: 40px;
+  /* Mais arredondado nos cantos */
+  padding: 1.75rem;
   display: flex;
   gap: 1.5rem;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(0, 0, 0, 0.01);
-  min-height: 220px;
+  min-height: 230px;
+  width: 100%;
+  /* Garante largura total */
 }
 
 .hero-visual {

@@ -52,7 +52,10 @@ body {
 
 .header-brand img {
   display: block;
-  max-width: 180px;
+  height: 52px;
+  /* Aumentado de 32px para 52px */
+  width: auto;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
 }
 
 .icon-btn {
@@ -79,17 +82,6 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
-}
-
-.status-dot {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 12px;
-  height: 12px;
-  background: var(--primary);
-  border: 2px solid var(--bg-top);
   border-radius: 50%;
 }
 

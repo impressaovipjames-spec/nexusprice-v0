@@ -65,11 +65,10 @@ function App() {
                 <header className="main-header">
                     <button className="icon-btn"><span className="material-symbols-outlined">menu</span></button>
                     <div className="header-brand">
-                        <img src="/assets/logo_completa.png" alt="NEXUSPRICE" style={{ height: '32px', width: 'auto' }} />
+                        <img src="/assets/logo_completa.png" alt="NEXUSPRICE" />
                     </div>
                     <div className="profile-avatar">
                         <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA76krzlsAu0S-WAnKiLWqyyE2ilm-0GgdzPNZaVIbPhCBpR1XDWxjs1vSJpfzoUGV1EVRG1nYD7MQ_tcRgudMql6fSRdVc4hYaWjmLYVz8XnYJRF-RCyM1OPrpKn0ftV3UZi9wYR1xHNl3pqTkuL6MGMh2iwNfZbBB6u4_sItoSPE5aSV-P3_6mljXmuAboJJ-ERR1eORfAA94L-zSfqD1uApVXAH2ZUIszzqVZdNRXhKqaJy52-7hpIOXTu3orx7Cs_JwK_OC7k13" alt="User" />
-                        <div className="status-dot"></div>
                     </div>
                 </header>
 

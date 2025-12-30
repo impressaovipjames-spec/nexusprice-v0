@@ -36,14 +36,17 @@ body {
 /* TOP AREA - COMPACT & ELEVATED */
 .top-banner {
   background: var(--teal-mesh);
-  padding: 2.25rem 1.5rem 3.5rem;
-  /* Reduced vertical padding drastically */
+  height: 200px;
+  /* ALTURA FIXA PARA NÃO CRESCER */
+  padding: 2.25rem 1.5rem 0;
   border-bottom-left-radius: 40px;
   border-bottom-right-radius: 40px;
-  margin-bottom: -2.5rem;
-  /* Pull content up more */
+  margin-bottom: -1rem;
+  /* Conteúdo sobe mais */
   position: relative;
   z-index: 1;
+  overflow: visible;
+  /* Garante que a logo gigante apareça */
 }
 
 .header-row {
@@ -59,13 +62,8 @@ body {
   /* MOVIMENTO FANTASMA */
   left: 50%;
   transform: translateX(-50%);
-  top: 30px;
+  top: 25px;
   /* Sobe a logo */
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  padding: 6px 16px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,9 +71,10 @@ body {
 }
 
 .logo-center img {
-  width: 70px;
-  /* Aumentado para 70px */
+  width: 150px;
+  /* LOGO GIGANTE 150PX */
   height: auto;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
 }
 
 .headline-box {

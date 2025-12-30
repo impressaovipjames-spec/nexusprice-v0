@@ -90,8 +90,8 @@ body {
   /* GHOST MOVIE */
   left: 50%;
   transform: translateX(-50%);
-  top: 165px;
-  /* Ajuste fino para subir 5px em relação à posição visual anterior */
+  top: 155px;
+  /* Subiu mais 10px (era 165px) */
   z-index: 10;
   width: 100%;
 }

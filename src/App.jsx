@@ -20,32 +20,22 @@ function App() {
         setFavorites(getFavorites())
         setHistory(getHistory())
         setAlerts(getAlerts())
-        const timer = setTimeout(() => setShowSplash(false), 6500)
+        const timer = setTimeout(() => setShowSplash(false), 5500)
         return () => clearTimeout(timer)
     }, [])
 
     const handleSearch = async (e) => {
         if (e) e.preventDefault()
         if (!query.trim()) return
-        setLoading(true)
-        setResult(null)
-        setError(null)
-        setTriggeredAlerts([])
+        setLoading(true); setResult(null); setError(null);
         try {
             const response = await searchProduct(query)
             if (response.success) {
                 setResult(response.data)
-                const bestOffer = response.data.offers[0]
-                saveToHistory(query, bestOffer)
+                saveToHistory(query, response.data.offers[0])
                 setHistory(getHistory())
-                const triggered = checkAlerts(query, bestOffer.preco_total)
-                if (triggered.length > 0) {
-                    setTriggeredAlerts(triggered)
-                    setAlerts(getAlerts())
-                }
-            } else { setError(response.error) }
-        } catch (err) { setError('Erro ao processar busca.') }
-        finally { setLoading(false) }
+            }
+        } finally { setLoading(false) }
     }
 
     const formatBRL = (val) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val)
@@ -56,19 +46,18 @@ function App() {
                 <div className={`splash-screen ${!showSplash ? '' : 'splash-fade-out'}`}>
                     <div className="splash-content">
                         <img src="/assets/logo_solo.png" alt="$" className="logo-symbol" />
-                        <img src="/assets/logo_completa.png" alt="NEXUSPRICE" className="logo-reveal-text" />
                     </div>
                 </div>
             )}
 
             <div className="app-wrapper">
                 <header className="main-header">
-                    <button className="icon-btn"><span className="material-symbols-outlined">menu</span></button>
+                    <button className="icon-btn"><span className="material-symbols-outlined">notes</span></button>
                     <div className="header-brand">
-                        <img src="/assets/logo_completa.png" alt="NEXUSPRICE" />
+                        <img src="/assets/logo_completa_preta.png" alt="NEXUSPRICE" style={{ height: '36px' }} />
                     </div>
-                    <div className="profile-avatar">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA76krzlsAu0S-WAnKiLWqyyE2ilm-0GgdzPNZaVIbPhCBpR1XDWxjs1vSJpfzoUGV1EVRG1nYD7MQ_tcRgudMql6fSRdVc4hYaWjmLYVz8XnYJRF-RCyM1OPrpKn0ftV3UZi9wYR1xHNl3pqTkuL6MGMh2iwNfZbBB6u4_sItoSPE5aSV-P3_6mljXmuAboJJ-ERR1eORfAA94L-zSfqD1uApVXAH2ZUIszzqVZdNRXhKqaJy52-7hpIOXTu3orx7Cs_JwK_OC7k13" alt="User" />
+                    <div className="icon-btn" style={{ position: 'relative' }}>
+                        <span className="material-symbols-outlined">notifications</span>
                     </div>
                 </header>
 
@@ -76,170 +65,115 @@ function App() {
                     {activeTab === 'search' && (
                         <>
                             <div className="headline">
-                                <h1>Melhor preço <br /><span>encontrado para você</span></h1>
+                                <h1 style={{ color: '#1e293b', textShadow: 'none' }}>Melhor preço <br /><span style={{ color: '#94a3b8' }}>encontrado para você</span></h1>
                             </div>
 
                             <form className="search-container" onSubmit={handleSearch}>
                                 <div className="search-bar">
-                                    <span className="material-symbols-outlined" style={{ opacity: 0.5 }}>search</span>
+                                    <span className="material-symbols-outlined" style={{ color: '#94a3b8' }}>search</span>
                                     <input
                                         type="text"
-                                        placeholder="Buscar produtos..."
+                                        placeholder="Pesquisar produto"
                                         value={query}
                                         onChange={(e) => setQuery(e.target.value)}
-                                        disabled={loading}
                                     />
-                                    <button type="button" className="icon-btn" style={{ opacity: 0.5 }}><span className="material-symbols-outlined">mic</span></button>
+                                    <span className="material-symbols-outlined" style={{ color: '#94a3b8' }}>mic</span>
                                 </div>
                             </form>
 
                             {loading && (
-                                <div className="loading-indicator">
-                                    <div className="spinner-ring"></div>
-                                    <p className="loading-text">ORION 3.0 VARRENDO O MERCADO...</p>
-                                </div>
-                            )}
-
-                            {triggeredAlerts.length > 0 && (
-                                <div className="hero-card" style={{ background: 'var(--primary)', color: '#0b1a15', padding: '1rem', marginBottom: '1rem' }}>
-                                    <div className="badge-item"><span className="material-symbols-outlined">bolt</span> <strong>Alerta Ativado!</strong></div>
-                                    <p style={{ fontSize: '0.8rem', opacity: 0.8 }}>Preço alvo de {formatBRL(triggeredAlerts[0].targetPrice)} atingido.</p>
+                                <div style={{ padding: '2rem', textAlign: 'center', color: '#10b77f' }}>
+                                    <div className="spinner-ring" style={{ margin: '0 auto', borderColor: 'rgba(16,183,127,0.1)', borderTopColor: '#10b77f' }}></div>
                                 </div>
                             )}
 
                             {result && (
                                 <>
-                                    <div className="hero-card">
-                                        <div className="hero-image-area">
-                                            <div className="best-badge">Melhor Escolha</div>
+                                    {/* HORIZONTAL HERO (IMAGE 2 STYLE) */}
+                                    <div className="hero-selection" onClick={() => window.open(result.offers[0].link, '_blank')}>
+                                        <div className="hero-tag">Melhor escolha</div>
+                                        <div className="hero-thumb">
                                             <img src={result.image} alt={result.productName} />
                                         </div>
-                                        <div className="hero-content">
-                                            <div className="hero-product-title">
-                                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                    <div>
-                                                        <h2>{result.productName}</h2>
-                                                        <p className="hero-product-meta">{result.offers[0].loja} • Confiável</p>
-                                                    </div>
-                                                    <button
-                                                        className="icon-btn"
-                                                        onClick={() => { saveFavorite(result.offers[0]); setFavorites(getFavorites()); }}
-                                                        style={{ color: isFavorite(result.offers[0].loja, result.offers[0].produto) ? 'var(--primary)' : '#fff' }}
-                                                    >
-                                                        <span className="material-symbols-outlined" style={{ fontVariationSettings: isFavorite(result.offers[0].loja, result.offers[0].produto) ? "'FILL' 1" : "" }}>favorite</span>
-                                                    </button>
-                                                </div>
+                                        <div className="hero-info">
+                                            <h2 className="hero-name">{result.productName}</h2>
+                                            <div className="hero-price">{formatBRL(result.offers[0].preco_total)}</div>
+                                            <div className="hero-store-line">
+                                                <span className="material-symbols-outlined" style={{ fontSize: 18, color: '#10b77f' }}>verified</span>
+                                                {result.offers[0].loja}
                                             </div>
-
-                                            <div className="hero-price-row">
-                                                <div>
-                                                    <span className="hero-price-value">{formatBRL(result.offers[0].preco_total)}</span>
-                                                    <div className="hero-badges">
-                                                        <div className="badge-item"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>local_shipping</span> Frete Grátis</div>
-                                                        <div className="badge-item"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>verified</span> Top Store</div>
-                                                    </div>
-                                                </div>
-                                                <button className="go-btn" onClick={() => window.open(result.offers[0].link, '_blank')}>
-                                                    <span className="material-symbols-outlined">arrow_forward</span>
-                                                </button>
-                                            </div>
-
-                                            <div style={{ marginTop: '1rem', display: 'flex', gap: '10px' }}>
-                                                <button className="modal-btn secondary" style={{ flex: 1, padding: '8px' }} onClick={() => setShowAlertModal(true)}>
-                                                    <span className="material-symbols-outlined" style={{ verticalAlign: 'middle', fontSize: 18, marginRight: 5 }}>notifications</span>
-                                                    {hasAlert(query) ? 'Alerta Ativo' : 'Criar Alerta'}
-                                                </button>
+                                            <div className="hero-badges">
+                                                <div className="clean-badge success">✓ Frete Grátis</div>
+                                                <div className="clean-badge">✓ Confiança</div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="section-title">
-                                        <h3>Comparar Preços</h3>
-                                        <button>Ver todos</button>
-                                    </div>
-
-                                    {result.offers.slice(1).map((offer, idx) => (
-                                        <div key={idx} className="list-item" onClick={() => window.open(offer.link, '_blank')}>
-                                            <div className="item-thumb"><img src={result.image} alt="thumb" /></div>
-                                            <div className="item-info">
-                                                <div className="item-row">
-                                                    <span className="item-name">{offer.loja}</span>
-                                                    <span className="item-price">{formatBRL(offer.preco_total)}</span>
+                                    {/* SEGUNDO MELHOR (SE RESULTADO EXISTIR) */}
+                                    {result.offers[1] && (
+                                        <>
+                                            <div className="section-header">
+                                                <h3>Segundo melhor</h3>
+                                                <span style={{ fontSize: '0.8rem', color: '#10b77f' }}>Ver mais</span>
+                                            </div>
+                                            <div className="horizontal-scroll">
+                                                <div className="small-card">
+                                                    <img src={result.image} alt="prev" />
+                                                    <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>{formatBRL(result.offers[1].preco_total)}</div>
+                                                    <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>{result.offers[1].loja}</div>
                                                 </div>
-                                                <div className="item-row">
-                                                    <span className="item-sub">Entrega: {offer.prazo_dias} dias</span>
-                                                    <span className={offer.custo_frete === 0 ? "item-shipping" : "item-shipping extra"}>
-                                                        {offer.custo_frete === 0 ? "Frete Grátis" : `+ ${formatBRL(offer.custo_frete)} frete`}
-                                                    </span>
+                                                {result.offers[2] && (
+                                                    <div className="small-card">
+                                                        <img src={result.image} alt="prev" />
+                                                        <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>{formatBRL(result.offers[2].preco_total)}</div>
+                                                        <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>{result.offers[2].loja}</div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </>
+                                    )}
+
+                                    {/* OUTROS PRODUTOS (LISTA) */}
+                                    <div className="section-header">
+                                        <h3>Outros produtos populares</h3>
+                                        <span className="material-symbols-outlined" style={{ fontSize: 20 }}>chevron_right</span>
+                                    </div>
+                                    <div className="store-list">
+                                        {result.offers.slice(2).map((offer, idx) => (
+                                            <div key={idx} className="store-row" onClick={() => window.open(offer.link, '_blank')}>
+                                                <div className="store-logo">
+                                                    <span className="material-symbols-outlined" style={{ color: '#94a3b8' }}>store</span>
+                                                </div>
+                                                <div className="store-details">
+                                                    <div style={{ fontWeight: 700 }}>{offer.loja}</div>
+                                                    <div className="store-meta">★★★★☆ • Frete: {offer.custo_frete === 0 ? 'Grátis' : formatBRL(offer.custo_frete)}</div>
+                                                </div>
+                                                <div className="store-price-area">
+                                                    <div className="store-price">{formatBRL(offer.preco_total)}</div>
                                                 </div>
                                             </div>
-                                            <span className="material-symbols-outlined" style={{ opacity: 0.2 }}>chevron_right</span>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </>
                             )}
                         </>
                     )}
 
+                    {/* ABAS COM ESTILO CLEAN */}
                     {activeTab === 'favorites' && (
-                        <div style={{ marginTop: '1rem' }}>
-                            <div className="section-title"><h3>Meus Favoritos</h3></div>
-                            {favorites.length === 0 ? <div className="empty-list">Sua lista está vazia.</div> :
-                                favorites.map((fav, idx) => (
-                                    <div key={idx} className="list-item">
-                                        <div className="item-info" style={{ marginLeft: 0 }}>
-                                            <div className="item-row">
-                                                <span className="item-name">{fav.produto}</span>
-                                                <button className="icon-btn" onClick={() => { removeFavorite(fav.loja, fav.produto); setFavorites(getFavorites()); }} style={{ color: '#f87171' }}><span className="material-symbols-outlined">delete</span></button>
-                                            </div>
-                                            <div className="item-row">
-                                                <span className="item-sub">{fav.loja}</span>
-                                                <span className="item-price">{formatBRL(fav.preco_total)}</span>
-                                            </div>
-                                        </div>
+                        <div style={{ padding: '0 1.5rem' }}>
+                            <h2 style={{ margin: '1rem 0' }}>Itens Salvos</h2>
+                            {favorites.map((fav, i) => (
+                                <div key={i} className="store-row">
+                                    <div className="store-details" style={{ marginLeft: 0 }}>
+                                        <div style={{ fontWeight: 700 }}>{fav.produto}</div>
+                                        <div className="store-meta">{fav.loja}</div>
                                     </div>
-                                ))
-                            }
-                        </div>
-                    )}
-
-                    {activeTab === 'history' && (
-                        <div style={{ marginTop: '1rem' }}>
-                            <div className="section-title"><h3>Buscas Recentes</h3></div>
-                            {history.length === 0 ? <div className="empty-list">Nenhum histórico encontrado.</div> :
-                                history.map((item, idx) => (
-                                    <div key={idx} className="list-item" onClick={() => { setQuery(item.query); handleSearchManually(item.query); setActiveTab('search'); }}>
-                                        <div className="item-info" style={{ marginLeft: 0 }}>
-                                            <div className="item-row">
-                                                <span className="item-name">"{item.query}"</span>
-                                                <span className="material-symbols-outlined" style={{ opacity: 0.2 }}>history</span>
-                                            </div>
-                                            <div className="item-sub">{item.result.loja} • {formatBRL(item.result.preco_total)}</div>
-                                        </div>
+                                    <div className="store-price-area">
+                                        <div className="store-price" style={{ color: '#10b77f' }}>{formatBRL(fav.preco_total)}</div>
                                     </div>
-                                ))
-                            }
-                        </div>
-                    )}
-
-                    {activeTab === 'alerts' && (
-                        <div style={{ marginTop: '1rem' }}>
-                            <div className="section-title"><h3>Alertas de Preço</h3></div>
-                            {alerts.length === 0 ? <div className="empty-list">Nenhum alerta configurado.</div> :
-                                alerts.map((alert, idx) => (
-                                    <div key={idx} className="list-item">
-                                        <div className="item-info" style={{ marginLeft: 0 }}>
-                                            <div className="item-row">
-                                                <span className="item-name" style={{ color: alert.triggered ? 'var(--primary)' : '#fff' }}>
-                                                    {alert.triggered ? '✓ ' : '⏳ '}"{alert.query}"
-                                                </span>
-                                                <button className="icon-btn" onClick={() => { removeAlert(alert.query); setAlerts(getAlerts()); }}><span className="material-symbols-outlined">close</span></button>
-                                            </div>
-                                            <div className="item-sub">Preço Alvo: {formatBRL(alert.targetPrice)}</div>
-                                        </div>
-                                    </div>
-                                ))
-                            }
+                                </div>
+                            ))}
                         </div>
                     )}
                 </main>
@@ -247,55 +181,26 @@ function App() {
                 <nav className="bottom-nav-container">
                     <div className="bottom-nav">
                         <button className={`nav-item ${activeTab === 'search' ? 'active' : ''}`} onClick={() => setActiveTab('search')}>
-                            <span className="material-symbols-outlined" style={{ fontVariationSettings: activeTab === 'search' ? "'FILL' 1" : "" }}>search</span>
-                            <span className="nav-label">BUSCAR</span>
+                            <span className="material-symbols-outlined">home</span>
+                            <span style={{ fontSize: '9px', fontWeight: 700 }}>HOME</span>
                         </button>
                         <button className={`nav-item ${activeTab === 'favorites' ? 'active' : ''}`} onClick={() => setActiveTab('favorites')}>
-                            <span className="material-symbols-outlined" style={{ fontVariationSettings: activeTab === 'favorites' ? "'FILL' 1" : "" }}>favorite</span>
-                            <span className="nav-label">SALVOS</span>
+                            <span className="material-symbols-outlined">bookmark</span>
+                            <span style={{ fontSize: '9px', fontWeight: 700 }}>SALVOS</span>
                         </button>
                         <button className={`nav-item ${activeTab === 'history' ? 'active' : ''}`} onClick={() => setActiveTab('history')}>
-                            <span className="material-symbols-outlined" style={{ fontVariationSettings: activeTab === 'history' ? "'FILL' 1" : "" }}>history</span>
-                            <span className="nav-label">RECENTES</span>
+                            <span className="material-symbols-outlined">history</span>
+                            <span style={{ fontSize: '9px', fontWeight: 700 }}>HISTÓRICO</span>
                         </button>
                         <button className={`nav-item ${activeTab === 'alerts' ? 'active' : ''}`} onClick={() => setActiveTab('alerts')}>
-                            <span className="material-symbols-outlined" style={{ fontVariationSettings: activeTab === 'alerts' ? "'FILL' 1" : "" }}>notifications</span>
-                            <span className="nav-label">ALERTAS</span>
+                            <span className="material-symbols-outlined">notifications</span>
+                            <span style={{ fontSize: '9px', fontWeight: 700 }}>ALERTAS</span>
                         </button>
                     </div>
                 </nav>
-
-                {showAlertModal && (
-                    <div className="modal-overlay" onClick={() => setShowAlertModal(false)}>
-                        <div className="modal" onClick={(e) => e.stopPropagation()}>
-                            <h3>Criar Alerta</h3>
-                            <p>Notificar quando o preço de <strong>{query}</strong> ficar abaixo de:</p>
-                            <input
-                                type="number"
-                                className="modal-input"
-                                placeholder="R$ 0,00"
-                                value={targetPrice}
-                                onChange={(e) => setTargetPrice(e.target.value)}
-                                autoFocus
-                            />
-                            <div className="modal-actions">
-                                <button className="modal-btn secondary" onClick={() => setShowAlertModal(false)}>Cancelar</button>
-                                <button className="modal-btn primary" onClick={() => { saveAlert(query, targetPrice); setAlerts(getAlerts()); setShowAlertModal(false); setTargetPrice(''); }}>Ativar</button>
-                            </div>
-                        </div>
-                    </div>
-                )}
             </div>
         </>
     )
-
-    async function handleSearchManually(q) {
-        setLoading(true); setResult(null); setError(null);
-        try {
-            const response = await searchProduct(q)
-            if (response.success) setResult(response.data)
-        } finally { setLoading(false) }
-    }
 }
 
 export default App

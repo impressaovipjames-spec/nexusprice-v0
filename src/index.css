@@ -47,8 +47,8 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.25rem;
-  margin-top: -15px;
-  /* Sobe o sino e os traços */
+  margin-top: -7px;
+  /* Baixou 8px (era -15px) */
 }
 
 /* LOGO NO FLUXO (GHOST MOVIE REMOVIDO) */
@@ -56,8 +56,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: -15px;
-  /* Subiu 15px em relação ao anterior (-10px total) */
+  margin-top: -7px;
+  /* Baixou 8px (era -15px) */
   z-index: 10;
 }
 

@@ -51,36 +51,44 @@ function App() {
             )}
 
             <div className="app-wrapper">
-                <header className="main-header">
-                    <button className="icon-btn"><span className="material-symbols-outlined">notes</span></button>
-                    <div className="header-brand">
-                        <img src="/assets/logo_completa_preta.png" alt="NEXUSPRICE" style={{ height: '36px' }} />
-                    </div>
-                    <div className="icon-btn" style={{ position: 'relative' }}>
-                        <span className="material-symbols-outlined">notifications</span>
-                    </div>
-                </header>
+                <div className="top-section">
+                    <header className="main-header">
+                        <button className="icon-btn"><span className="material-symbols-outlined">notes</span></button>
+                        <div className="header-brand">
+                            <img src="/assets/logo_completa.png" alt="NEXUSPRICE" />
+                        </div>
+                        <div className="icon-btn">
+                            <span className="material-symbols-outlined">notifications</span>
+                        </div>
+                    </header>
 
-                <main className="main-content no-scrollbar">
+                    <main className="main-content no-scrollbar" style={{ paddingBottom: 0 }}>
+                        {activeTab === 'search' && (
+                            <>
+                                <div className="headline">
+                                    <h1>Melhor preço encontrado para você</h1>
+                                </div>
+
+                                <form className="search-container" onSubmit={handleSearch}>
+                                    <div className="search-bar">
+                                        <span className="material-symbols-outlined" style={{ color: '#94a3b8' }}>search</span>
+                                        <input
+                                            type="text"
+                                            placeholder="Pesquisar produto"
+                                            value={query}
+                                            onChange={(e) => setQuery(e.target.value)}
+                                        />
+                                        <span className="material-symbols-outlined" style={{ color: '#94a3b8' }}>mic</span>
+                                    </div>
+                                </form>
+                            </>
+                        )}
+                    </main>
+                </div>
+
+                <main className="main-content no-scrollbar" style={{ paddingTop: '1.5rem' }}>
                     {activeTab === 'search' && (
                         <>
-                            <div className="headline">
-                                <h1 style={{ color: '#1e293b', textShadow: 'none' }}>Melhor preço <br /><span style={{ color: '#94a3b8' }}>encontrado para você</span></h1>
-                            </div>
-
-                            <form className="search-container" onSubmit={handleSearch}>
-                                <div className="search-bar">
-                                    <span className="material-symbols-outlined" style={{ color: '#94a3b8' }}>search</span>
-                                    <input
-                                        type="text"
-                                        placeholder="Pesquisar produto"
-                                        value={query}
-                                        onChange={(e) => setQuery(e.target.value)}
-                                    />
-                                    <span className="material-symbols-outlined" style={{ color: '#94a3b8' }}>mic</span>
-                                </div>
-                            </form>
-
                             {loading && (
                                 <div style={{ padding: '2rem', textAlign: 'center', color: '#10b77f' }}>
                                     <div className="spinner-ring" style={{ margin: '0 auto', borderColor: 'rgba(16,183,127,0.1)', borderTopColor: '#10b77f' }}></div>
@@ -89,7 +97,7 @@ function App() {
 
                             {result && (
                                 <>
-                                    {/* HORIZONTAL HERO (IMAGE 2 STYLE) */}
+                                    {/* HORIZONTAL HERO (MELHOR ESCOLHA) */}
                                     <div className="hero-selection" onClick={() => window.open(result.offers[0].link, '_blank')}>
                                         <div className="hero-tag">Melhor escolha</div>
                                         <div className="hero-thumb">
@@ -104,49 +112,53 @@ function App() {
                                             </div>
                                             <div className="hero-badges">
                                                 <div className="clean-badge success">✓ Frete Grátis</div>
-                                                <div className="clean-badge">✓ Confiança</div>
+                                                <div className="clean-badge">Amanhã</div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* SEGUNDO MELHOR (SE RESULTADO EXISTIR) */}
-                                    {result.offers[1] && (
+                                    {/* CAROUSEL - SEGUNDO AO QUINTO MELHOR */}
+                                    {result.offers.length > 1 && (
                                         <>
                                             <div className="section-header">
-                                                <h3>Segundo melhor</h3>
+                                                <h3>Outras ótimas opções</h3>
                                                 <span style={{ fontSize: '0.8rem', color: '#10b77f' }}>Ver mais</span>
                                             </div>
                                             <div className="horizontal-scroll">
-                                                <div className="small-card">
-                                                    <img src={result.image} alt="prev" />
-                                                    <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>{formatBRL(result.offers[1].preco_total)}</div>
-                                                    <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>{result.offers[1].loja}</div>
-                                                </div>
-                                                {result.offers[2] && (
-                                                    <div className="small-card">
-                                                        <img src={result.image} alt="prev" />
-                                                        <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>{formatBRL(result.offers[2].preco_total)}</div>
-                                                        <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>{result.offers[2].loja}</div>
+                                                {result.offers.slice(1, 5).map((offer, idx) => (
+                                                    <div key={idx} className="small-card" onClick={() => window.open(offer.link, '_blank')}>
+                                                        <div style={{ position: 'relative', marginBottom: '8px' }}>
+                                                            <img src={result.image} alt="prev" />
+                                                            <div style={{ position: 'absolute', top: 0, right: 0, background: 'rgba(16,183,127,0.1)', color: '#10b77f', padding: '2px 6px', borderRadius: '8px', fontSize: '10px', fontWeight: 700 }}>#{idx + 2}</div>
+                                                        </div>
+                                                        <div style={{ fontWeight: 800, fontSize: '1rem', color: '#10b77f' }}>{formatBRL(offer.preco_total)}</div>
+                                                        <div style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: '2px' }}>{offer.loja}</div>
+                                                        <div style={{ fontSize: '0.65rem', color: '#94a3b8', marginTop: '4px' }}>
+                                                            {offer.custo_frete === 0 ? '✓ Frete Grátis' : `+ ${formatBRL(offer.custo_frete)} frete`}
+                                                        </div>
                                                     </div>
-                                                )}
+                                                ))}
                                             </div>
                                         </>
                                     )}
 
-                                    {/* OUTROS PRODUTOS (LISTA) */}
-                                    <div className="section-header">
-                                        <h3>Outros produtos populares</h3>
-                                        <span className="material-symbols-outlined" style={{ fontSize: 20 }}>chevron_right</span>
+                                    {/* TODAS AS LOJAS (LISTA) */}
+                                    <div className="section-header" style={{ marginTop: '1rem' }}>
+                                        <h3>Todos os preços disponíveis</h3>
+                                        <span className="material-symbols-outlined" style={{ fontSize: 20, color: '#94a3b8' }}>sort</span>
                                     </div>
                                     <div className="store-list">
-                                        {result.offers.slice(2).map((offer, idx) => (
+                                        {result.offers.map((offer, idx) => (
                                             <div key={idx} className="store-row" onClick={() => window.open(offer.link, '_blank')}>
                                                 <div className="store-logo">
                                                     <span className="material-symbols-outlined" style={{ color: '#94a3b8' }}>store</span>
                                                 </div>
                                                 <div className="store-details">
-                                                    <div style={{ fontWeight: 700 }}>{offer.loja}</div>
-                                                    <div className="store-meta">★★★★☆ • Frete: {offer.custo_frete === 0 ? 'Grátis' : formatBRL(offer.custo_frete)}</div>
+                                                    <div style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                                        {offer.loja}
+                                                        {idx === 0 && <span style={{ background: '#76d2b1', color: '#fff', fontSize: '8px', padding: '2px 6px', borderRadius: '4px' }}>MELHOR</span>}
+                                                    </div>
+                                                    <div className="store-meta">Entrega em {offer.prazo_dias} dias • {offer.custo_frete === 0 ? 'Frete Grátis' : `Frete: ${formatBRL(offer.custo_frete)}`}</div>
                                                 </div>
                                                 <div className="store-price-area">
                                                     <div className="store-price">{formatBRL(offer.preco_total)}</div>

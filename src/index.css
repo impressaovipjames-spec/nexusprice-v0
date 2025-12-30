@@ -4,10 +4,6 @@
   --bg-light: #f8fafc;
   --text-main: #0f172a;
   --text-muted: #64748b;
-  --teal-mesh: radial-gradient(at 0% 0%, #a7ead3 0%, transparent 50%),
-    radial-gradient(at 100% 0%, #1db983 0%, transparent 50%),
-    radial-gradient(at 50% 100%, #16a374 0%, transparent 50%),
-    #1dba84;
 }
 
 * {
@@ -33,82 +29,75 @@ body {
   position: relative;
 }
 
-/* TOP AREA - COMPACT & ELEVATED */
+/* TOP AREA - USING fundo_verde.png */
 .top-banner {
-  background: var(--teal-mesh);
-  height: 200px;
-  /* ALTURA FIXA PARA NÃO CRESCER */
-  padding: 2.25rem 1.5rem 0;
+  background: url('/fundo_verde.png') no-repeat center center / cover;
+  height: 240px;
+  /* Altura ajustada para o novo fundo */
+  padding: 1.5rem 1.5rem 0;
   border-bottom-left-radius: 40px;
   border-bottom-right-radius: 40px;
-  margin-bottom: -1rem;
-  /* Conteúdo sobe mais */
   position: relative;
   z-index: 1;
   overflow: visible;
-  /* Garante que a logo gigante apareça */
 }
 
 .header-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.5rem;
   /* Tighter spacing */
 }
 
+/* LOGO NO FLUXO (GHOST MOVIE REMOVIDO) */
 .logo-center {
-  position: absolute;
-  /* MOVIMENTO FANTASMA */
-  left: 50%;
-  transform: translateX(-50%);
-  top: 10px;
-  /* Subiu 15px (era 25px) */
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 5px;
+  /* Subiu 5px (especificado em relação ao anterior) */
   z-index: 10;
 }
 
 .logo-center img {
   width: 200px;
-  /* AUMENTADO PARA 200PX */
   height: auto;
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
 }
 
 .headline-box {
-  margin-bottom: 1.25rem;
-  margin-top: 5px;
-  /* Desceu 15px (era -10px) */
+  margin-top: 10px;
+  /* Baixou 5px (especificado em relação ao anterior) */
+  margin-bottom: 1.5rem;
   text-align: center;
 }
 
 .headline-box h1 {
   color: #ffffff;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 500;
   letter-spacing: 0.01em;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* SEARCH BAR - SLIM & ELEGANT */
+/* SEARCH BAR - EMPURRADA PELO TEXTO */
 .search-wrapper {
   position: relative;
   z-index: 10;
-  margin-top: 5px;
-  /* Desceu 20px (era -15px) */
+  margin-bottom: 2rem;
 }
 
 .search-input-group {
   background: #ffffff;
-  height: 44px;
-  /* Mais fina e singela */
-  border-radius: 22px;
+  height: 42px;
+  /* Singela e fina */
+  border-radius: 21px;
   display: flex;
   align-items: center;
   padding: 0 1.25rem;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  width: 90%;
+  width: 85%;
   margin: 0 auto;
 }
 
@@ -122,33 +111,39 @@ body {
   outline: none;
 }
 
+/* MAIN CONTENT OVERLAP - O "CHARME" */
+.main-content-flow {
+  margin-top: -70px;
+  /* SOBREPOSIÇÃO NO VERDE */
+  position: relative;
+  z-index: 20;
+  padding-bottom: 100px;
+}
+
 /* HERO CARD - BIG & BEAUTIFUL */
 .hero-card-container {
   padding: 0 1.25rem;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-  position: relative;
-  z-index: 5;
+  margin-bottom: 1.5rem;
 }
 
 .hero-card-main {
   background: #ffffff;
-  border-radius: 32px;
-  padding: 1.25rem;
+  border-radius: 36px;
+  padding: 1.5rem;
   display: flex;
-  gap: 1.25rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  gap: 1.5rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.01);
+  min-height: 220px;
 }
 
 .hero-visual {
-  width: 45%;
+  width: 42%;
   background: radial-gradient(circle at center, #f0fdf9 0%, #ffffff 100%);
-  border-radius: 24px;
+  border-radius: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 180px;
 }
 
 .hero-visual img {
@@ -166,95 +161,68 @@ body {
 
 .hero-product-price {
   color: var(--primary);
-  font-size: 1.75rem;
+  font-size: 1.8rem;
   font-weight: 800;
+  margin-top: 4px;
 }
 
-/* CAROUSEL SEGUNDO MELHOR */
-.section-label {
-  padding: 0 1.5rem;
-  margin-bottom: 0.75rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.section-label h3 {
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-.options-carousel {
-  display: flex;
-  gap: 1rem;
-  padding: 0 1.5rem 2rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.option-card {
-  min-width: 160px;
-  background: #ffffff;
-  border-radius: 24px;
-  padding: 0.75rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
-}
-
-/* BOTTOM NAVIGATION - CLEAN LUXURY */
+/* BOTTOM NAVIGATION - REDESINHADA */
 .nav-bottom-luxury {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 0 1.5rem 1.5rem;
+  padding: 0 1.5rem 1.75rem;
   z-index: 1000;
   max-width: 500px;
   margin: 0 auto;
-  background: transparent;
 }
 
 .nav-bar-white {
   background: #ffffff;
-  height: 64px;
-  border-radius: 32px;
+  height: 68px;
+  border-radius: 34px;
   display: flex;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.02);
 }
 
 .nav-bar-item {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: transparent;
-  border: none;
-  border-right: 1px solid rgba(0, 0, 0, 0.03);
-  color: #94a3b8;
-  cursor: pointer;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
-}
-
-.nav-bar-item:last-child {
-  border-right: none;
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-bar-item.active {
   color: var(--primary);
-  background: rgba(29, 186, 132, 0.03);
 }
 
 .nav-bar-label {
-  font-size: 9px;
-  font-weight: 700;
-  margin-top: 2px;
+  font-size: 8px;
+  font-weight: 800;
+  margin-top: 4px;
+  letter-spacing: 0.05em;
 }
 
 .icon-white {
   color: #fff;
   font-size: 24px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .splash-fullscreen {
@@ -265,8 +233,4 @@ body {
   position: fixed;
   inset: 0;
   z-index: 99999;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
 }

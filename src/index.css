@@ -43,6 +43,18 @@ body {
   align-items: center;
 }
 
+.header-brand {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-brand img {
+  display: block;
+  max-width: 180px;
+}
+
 .icon-btn {
   background: transparent;
   border: none;

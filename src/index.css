@@ -55,6 +55,12 @@ body {
 }
 
 .logo-center {
+  position: absolute;
+  /* MOVIMENTO FANTASMA */
+  left: 50%;
+  transform: translateX(-50%);
+  top: 30px;
+  /* Sobe a logo */
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
   padding: 6px 16px;
@@ -63,8 +69,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: -15px;
-  /* Sobe a logo */
+  z-index: 10;
 }
 
 .logo-center img {
@@ -92,8 +97,8 @@ body {
 .search-wrapper {
   position: relative;
   z-index: 10;
-  margin-top: -35px;
-  /* Sobe a barra de busca */
+  margin-top: -15px;
+  /* Desce a janela de busca em 20px (era -35px) */
 }
 
 .search-input-group {

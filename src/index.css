@@ -62,8 +62,8 @@ body {
   /* MOVIMENTO FANTASMA */
   left: 50%;
   transform: translateX(-50%);
-  top: 25px;
-  /* Sobe a logo */
+  top: 10px;
+  /* Subiu 15px (era 25px) */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,17 +71,16 @@ body {
 }
 
 .logo-center img {
-  width: 150px;
-  /* LOGO GIGANTE 150PX */
+  width: 200px;
+  /* AUMENTADO PARA 200PX */
   height: auto;
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
 }
 
 .headline-box {
   margin-bottom: 1.25rem;
-  /* Sobe o texto */
-  margin-top: -10px;
-  /* Ajuste fino para subir */
+  margin-top: 5px;
+  /* Desceu 15px (era -10px) */
   text-align: center;
 }
 
@@ -96,8 +95,8 @@ body {
 .search-wrapper {
   position: relative;
   z-index: 10;
-  margin-top: -15px;
-  /* Desce a janela de busca em 20px (era -35px) */
+  margin-top: 5px;
+  /* Desceu 20px (era -15px) */
 }
 
 .search-input-group {
